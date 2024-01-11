@@ -1,6 +1,7 @@
 import css from "./Main.module.scss"
 import useTriviaQuestions from "../../hooks/useTriviaQuestions";
 import Card from "../../components/Card";
+import Results from "../../components/Results";
 
 const Main = () => {
     const { data: questions, isLoading } = useTriviaQuestions(12);
@@ -13,20 +14,7 @@ const Main = () => {
 
     return (
         <div>
-            <div className={css.mainContainer}>
-                {
-                    questions?.map(question => (
-                        <div className={`${css.something} ${css.subContainer} `}><Card question={question} /></div>
-                    ))
-                }
-            </div>
-            <div>
-            {
-                    questions?.map(question => (
-                        <div className={css.subContainer}><Card question={question} /></div>
-                    ))
-                }
-            </div>
+            <Results />          
         </div>
     )
 }
