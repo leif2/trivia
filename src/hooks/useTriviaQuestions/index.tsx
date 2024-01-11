@@ -19,12 +19,11 @@ const resultSchema = z.object({
     results: z.array(questionsSchema)
 })
 
-const useTriviaQuestions = () => {
+const useTriviaQuestions = (category: number = 9) => {
     return useQuery({
-        queryKey: ["trivia-questions"],
+        queryKey: ["trivia-questions", category],
         queryFn: async ()=> {
-            const response = await axios.get("https://opentdb.com/api.php?amount=10")
-            console.log(response)
+            const response = await axios.get(`https://opentdb.com/api.php?amount=10&category=${category}`)
             return resultSchema.parse(response?.data)?.results;
         },
         staleTime: 60*1000*5,

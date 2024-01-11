@@ -1,10 +1,9 @@
-import React from "react";
 import css from "./Main.module.scss"
 import useTriviaQuestions from "../../hooks/useTriviaQuestions";
 import Card from "../../components/Card";
 
 const Main = () => {
-    const { data: questions, isLoading } = useTriviaQuestions();
+    const { data: questions, isLoading } = useTriviaQuestions(12);
 
     if (isLoading) {
         return (
