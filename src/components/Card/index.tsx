@@ -1,5 +1,5 @@
 import React from "react";
-import { Question } from "../../hooks/useTriviaQuestions";
+import useTriviaQuestions, { Question } from "../../hooks/useTriviaQuestions";
 
 type CardProps = {
     question: Question,
@@ -7,7 +7,6 @@ type CardProps = {
 }
 
 const Card = ({question, name = "Stuff"}: CardProps) => {
-
     return <div>
         {question.question}
         {name}
