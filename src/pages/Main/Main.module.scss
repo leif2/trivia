@@ -1,16 +1,15 @@
+@import "src/sass_utils";
 
 .mainContainer {
-    color: white;
-
     .subContainer {
         text-align: right;
 
         &.something {
-            color: green;
+            color: $dark;
         }
     }
 }
 
 .subContainer {
-    color: blue;
+    color: $success;
 }
