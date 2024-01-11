@@ -1,1 +1,16 @@
 
+.mainContainer {
+    color: white;
+
+    .subContainer {
+        text-align: right;
+
+        &.something {
+            color: green;
+        }
+    }
+}
+
+.subContainer {
+    color: blue;
+}

@@ -14,11 +14,20 @@ const Main = () => {
 
     return (
         <div>
+            <div className={css.mainContainer}>
+                {
+                    questions?.map(question => (
+                        <div className={`${css.something} ${css.subContainer} `}><Card question={question} /></div>
+                    ))
+                }
+            </div>
+            <div>
             {
-                questions?.map(question => (
-                    <Card question={question} />
-                ))
-            }
+                    questions?.map(question => (
+                        <div className={css.subContainer}><Card question={question} /></div>
+                    ))
+                }
+            </div>
         </div>
     )
 }
