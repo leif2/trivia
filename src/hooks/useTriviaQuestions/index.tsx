@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { z } from "zod";
+import { QuestionsForm } from "../../components/SetQuestionsForm";
 
 const questionsSchema = z.object({
     category: z.string(),
@@ -19,14 +20,31 @@ const resultSchema = z.object({
     results: z.array(questionsSchema)
 })
 
-const useTriviaQuestions = (category: number = 9) => {
+const useTriviaQuestions = (questionParam: QuestionsForm | null, disabled = false) => {
+    console.log(disabled)
     return useQuery({
-        queryKey: ["trivia-questions", category],
+        queryKey: ["trivia-questions", JSON.stringify(questionParam)],
         queryFn: async ()=> {
-            const response = await axios.get(`https://opentdb.com/api.php?amount=10&category=${category}`)
+            console.log("GET Q's")
+            let url = `https://opentdb.com/api.php?amount=${questionParam?.amount}`;
+
+            if (questionParam?.category) {
+                url += `&category=${questionParam?.category || 10}`
+            }
+
+            if (questionParam?.type) {
+                url += `&type=${questionParam?.type}`
+            }
+
+            if (questionParam?.difficulty) {
+                url += `&difficulty=${questionParam?.difficulty}`
+            }
+
+            const response = await axios.get(url)
             return resultSchema.parse(response?.data)?.results;
         },
         staleTime: 60*1000*5,
+        enabled: !disabled
     });
 };
 

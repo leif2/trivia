@@ -1,0 +1,15 @@
+@import "src/sass_utils";
+
+.SetQuestionsFormInputContainer {
+    margin-right: 8px;
+
+    .SetQuestionsFormInput {
+        line-height: 36px;
+        background-color: white;
+        border-radius: 6px;
+        color: $dark;
+        width: 100%;
+        min-width: none;
+        margin-right: 4px;
+    }
+}
