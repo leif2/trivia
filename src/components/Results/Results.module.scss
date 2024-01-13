@@ -75,7 +75,15 @@
         border-radius: 3px;
         max-width: 600px;
         min-width: 300px;
+
+        .pass{
+            color: $success;
+        }
+        .error{
+            color: $error;
+        }
     }
+
 
     .closeModalButton{
         position: absolute;

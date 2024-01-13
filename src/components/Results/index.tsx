@@ -13,6 +13,8 @@ type ResultsProps = {
 const Results = ({correct = 3, total = 10} :ResultsProps) => {
 
 
+  //TODOs: line 29, 41, and handling the parameters passed in. 
+
 
   //create a modal state and declare it false that way modal does not show open on arrival 
     const [modal, setModal] = useState(false); 
@@ -22,13 +24,34 @@ const Results = ({correct = 3, total = 10} :ResultsProps) => {
         setModal(!modal); 
     }
 
+
+    //navigate to the beginning page 
+    //TODO: insert info to navigate to the new page. 
+    function navigateAway(page: number){
+      if(page === 1){
+        console.log("Navigating to a new page"); 
+      }else{
+        console.log("Navigate to Question 1"); 
+      }
+      
+    }
+
+
     //this creates an array and stores the users answers to display if they click "view results".
+    //TODO: take in the users answers and update the foreach method. 
     let answers = ["Yes", "No", "No", "No", "Yes", "Yes", "Yes", "No", "No", "Yes"];    
     let answersList = []; 
 
     //this takes each answer and pushes them into another aray with the correct wording to display to the user. 
+    //TODO: fix the if state depending on how API handles correct answer vs incorrect answer.
     answers.forEach((answer, index) =>{
-        answersList.push(<p key={index}>Q{index+1}: {answer}</p>); 
+
+      if(index % 2 === 0){
+        answersList.push(<p className={css.pass} key={index}>Q{index+1}: {answer}</p>);
+      }else{
+        answersList.push(<p className={css.error} key={index}>Q{index+1}: {answer}</p>);
+
+      }
     });
 
 
@@ -60,8 +83,8 @@ const Results = ({correct = 3, total = 10} :ResultsProps) => {
             <button className={css.button} onClick={toggleModal}>View Quiz Results</button>
           </div>
           <div className={css.newGameButtonContainer}>
-            <button className={css.button} onClick={newQuizPage}> New Quiz </button>
-            <button className={css.button}> Try Quiz Again</button>
+            <button className={css.button} onClick={(e) => navigateAway(1)}> Start New Quiz </button>
+            <button className={css.button} onClick={(e) => navigateAway(2)}> Retake Quiz</button>
           </div>
       
           {modal && (
