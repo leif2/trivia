@@ -1,20 +1,13 @@
 import React, {useState} from "react";
 import css from "./Results.module.scss"; 
 
-
-
-
 type ResultsProps = {
     correct: number, 
     total: number
 }; 
 
-
 const Results = ({correct = 3, total = 10} :ResultsProps) => {
-
-
   //TODOs: line 29, 41, and handling the parameters passed in. 
-
 
   //create a modal state and declare it false that way modal does not show open on arrival 
     const [modal, setModal] = useState(false); 
@@ -24,18 +17,15 @@ const Results = ({correct = 3, total = 10} :ResultsProps) => {
         setModal(!modal); 
     }
 
-
     //navigate to the beginning page 
     //TODO: insert info to navigate to the new page. 
-    function navigateAway(page: number){
-      if(page === 1){
+    function navigateAway(page: number) {
+      if (page === 1) {
         console.log("Navigating to a new page"); 
-      }else{
+      } else {
         console.log("Navigate to Question 1"); 
       }
-      
     }
-
 
     //this creates an array and stores the users answers to display if they click "view results".
     //TODO: take in the users answers and update the foreach method. 
@@ -44,16 +34,14 @@ const Results = ({correct = 3, total = 10} :ResultsProps) => {
 
     //this takes each answer and pushes them into another aray with the correct wording to display to the user. 
     //TODO: fix the if state depending on how API handles correct answer vs incorrect answer.
-    answers.forEach((answer, index) =>{
-
-      if(index % 2 === 0){
+    answers.forEach((answer, index) => {
+      if (index % 2 === 0) {
         answersList.push(<p className={css.pass} key={index}>Q{index+1}: {answer}</p>);
-      }else{
+      } else {
         answersList.push(<p className={css.error} key={index}>Q{index+1}: {answer}</p>);
 
       }
     });
-
 
     //create the percentage of correct answers 
     let percentage = (correct/total * 100); 
@@ -62,15 +50,13 @@ const Results = ({correct = 3, total = 10} :ResultsProps) => {
     //set default image to fail
     let pfImage = "failremovebg.png"; 
     //check if percentage is above 70%, if so set the pass and image to correct items. 
-    if(percentage >= 70){
+    if (percentage >= 70) {
         pass = "Congrats, You Passed!"; 
         pfImage = "passremovebg.png"; 
     }
-    else{
+    else {
         pass = "You did not pass, try again"; 
     }
-
-
     
     return (
         <div className={css.mainContainer}>
@@ -100,7 +86,6 @@ const Results = ({correct = 3, total = 10} :ResultsProps) => {
           )}
         </div>
       );
-      
 }
 
 export default Results; 

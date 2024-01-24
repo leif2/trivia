@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useTriviaCategories from "../../hooks/useTriviaCategories";
 import { z } from "zod";
 import css from "./SetQuestionsForm.module.scss"
@@ -69,7 +69,7 @@ const SetQuestionsForm = ({onSubmit}: SetQuestionsFormProps) => {
 
     const formattedCategories: Option<number>[] = categories?.map(category => ({label: category.name, value: category.id})) || [];
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e?.preventDefault();
         try {
             const validation = QuestionsFormSchema.parse(form);

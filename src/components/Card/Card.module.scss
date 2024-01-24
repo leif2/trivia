@@ -1,0 +1,47 @@
+@import "src/sass_utils";
+
+.cardContainer {
+    padding: 8px;
+    max-width: 600px;
+    width: 80vw;
+    min-width: 100px;
+    border-radius: 8px;
+    border-color: $light;
+    border-width: 2px;
+    border-style: solid;
+
+    .questionContainer {
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+        width: 100%;
+    
+		.answerContainer {
+			text-align: left;
+			display: flex;
+			flex-direction: column;
+			row-gap: 8px;
+			cursor: pointer;
+	
+			.label {
+				font-size: 24px;
+			}
+	
+			.input {
+				width: 100%
+			}
+		}
+	}
+}
+
+.answerIsSelected {
+	pointer-events: none;
+}
+
+.correctAnswer {
+	background: green;
+}
+
+.incorrectAnswer {
+	background: red;
+}
