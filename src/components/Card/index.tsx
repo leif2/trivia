@@ -38,7 +38,7 @@ const Card = ({ question, onSubmit }: CardProps) => {
             {question.question}
         </div>
         <>
-            {answers?.map((answer) => {
+            {answers?.map((answer, index) => {
                 const classes = [css.answerContainer];
                 if (answer === selectedAnswer) {
                     isAnswerCorrect ? classes.push(css.correctAnswer) : classes.push(css.incorrectAnswer);
@@ -46,7 +46,7 @@ const Card = ({ question, onSubmit }: CardProps) => {
                 if (isAnswerSelected) {
                     classes.push(css.answerIsSelected);
                 }
-                return <div className={classes.join(" ")} onClick={() => { handleOnClick(answer) }}>{answer}</div>;
+                return <div key={index} className={classes.join(" ")} onClick={() => { handleOnClick(answer) }}>{answer}</div>;
             }
             )
             }

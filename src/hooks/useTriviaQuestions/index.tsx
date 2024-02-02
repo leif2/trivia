@@ -20,6 +20,12 @@ const resultSchema = z.object({
     results: z.array(questionsSchema)
 })
 
+const convert = (string: string) => {
+    return string.replace(/&#(?:x([\da-f]+)|(\d+));/ig, function (_, hex, dec) {
+      return String.fromCharCode(dec || +('0x' + hex))
+    })
+  }
+
 const useTriviaQuestions = (questionParam: QuestionsForm | null, disabled = false) => {
     console.log(disabled)
     return useQuery({
@@ -41,7 +47,8 @@ const useTriviaQuestions = (questionParam: QuestionsForm | null, disabled = fals
             }
 
             const response = await axios.get(url)
-            return resultSchema.parse(response?.data)?.results;
+            let questions = resultSchema.parse(response?.data)?.results;
+            return questions.map(questionData => ({...questionData, question: convert(questionData.question)}));
         },
         staleTime: 60*1000*5,
         enabled: !disabled
