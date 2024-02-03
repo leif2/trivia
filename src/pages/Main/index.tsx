@@ -31,17 +31,12 @@ const Main = () => {
     }
 
     const constructAnswersArray = (): Answer[] => {
-        let answersArray = [];
+        let answersArray: Answer[] = [];
         questions?.map((question, index) => {
-            const answerString = answers[index];
             const answersObject = {answer: answers[index], correct: answers[index] === question.correct_answer};
             answersArray.push(answersObject);
         });
         return answersArray;
-    };
-
-    const resetQuiz = () => {
-        setAnswers([]);
     };
 
     return (

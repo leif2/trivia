@@ -20,10 +20,10 @@ const resultSchema = z.object({
     results: z.array(questionsSchema)
 })
 
-const convert = (string: string) => {
-    return string.replace(/&#(?:x([\da-f]+)|(\d+));/ig, function (_, hex, dec) {
+const convert = (value: string) => {
+    return value.replace(/&#(?:x([\da-f]+)|(\d+));/ig, function (_, hex, dec) {
       return String.fromCharCode(dec || +('0x' + hex))
-    })
+    }).replace(/&quot;/g, '"')
   }
 
 const useTriviaQuestions = (questionParam: QuestionsForm | null, disabled = false) => {
@@ -48,9 +48,13 @@ const useTriviaQuestions = (questionParam: QuestionsForm | null, disabled = fals
 
             const response = await axios.get(url)
             let questions = resultSchema.parse(response?.data)?.results;
-            return questions.map(questionData => ({...questionData, question: convert(questionData.question)}));
+            return questions.map(questionData => ({
+                ...questionData,
+                question: convert(questionData.question),
+                incorrect_answers: questionData?.incorrect_answers.map(answer => convert(answer)),
+                correct_answer: convert(questionData?.correct_answer)
+            }));
         },
-        staleTime: 60*1000*5,
         enabled: !disabled
     });
 };

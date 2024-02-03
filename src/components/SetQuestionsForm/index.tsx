@@ -5,9 +5,6 @@ import css from "./SetQuestionsForm.module.scss"
 import SetQuestionsFormSelect, { Option } from "./components/SetQuestionsFormSelect";
 import SetQuestionsFormInput from "./components/SetQuestionsFormInput";
 
-//TODO ADD ERRORS TO FORM INPUTS, 
-//validation is already done with zod
-
 const difficultyOptions: Option<string>[] = [
     {
         label: "Easy",
@@ -65,6 +62,7 @@ const SetQuestionsForm = ({onSubmit}: SetQuestionsFormProps) => {
     const [form, setForm] = useState<QuestionsForm>({
         amount: "1"
     });
+    const [validation, setValidation] = useState<Array<{path: Array<string | number>, error: string}>>([]);
     const { data: categories, isLoading } = useTriviaCategories();
 
     const formattedCategories: Option<number>[] = categories?.map(category => ({label: category.name, value: category.id})) || [];
@@ -79,7 +77,7 @@ const SetQuestionsForm = ({onSubmit}: SetQuestionsFormProps) => {
             }
         } catch (err) {
             if (err instanceof z.ZodError) {
-                console.log(err.issues.map(issue => ({ path: issue?.path, error: issue?.message})));
+                setValidation(err.issues.map(issue => ({ path: issue?.path, error: issue?.message})))
             }
         }
     }
@@ -92,8 +90,18 @@ const SetQuestionsForm = ({onSubmit}: SetQuestionsFormProps) => {
                         Amount of Questions
                     </div>
                     <div className={css.input}>
-                        <SetQuestionsFormInput value={String(form.amount || "")} onChange={(value) => setForm({...form, amount: String(value)})}
+                        <SetQuestionsFormInput
+                            value={String(form.amount || "")}
+                            onChange={(value) => setForm({...form, amount: String(value)})}
                         />
+                    </div>
+                    { 
+                        validation.find(error => error.path.includes("amount"))
+                        ? <div className={css.error}>Must have a numeric amount.</div>
+                        : null
+                    }
+                    <div>
+
                     </div>
                 </div>
                 <div className={css.inputContainer}>
