@@ -1,6 +1,5 @@
-import classes from "*.module.css";
-import React, { useState, useEffect } from "react";
-import useTriviaQuestions, { Question } from "../../hooks/useTriviaQuestions";
+import { useState, useEffect } from "react";
+import { Question } from "../../hooks/useTriviaQuestions";
 import css from "./Card.module.scss";
 
 type CardProps = {
@@ -46,12 +45,12 @@ const Card = ({ question, onSubmit }: CardProps) => {
                 if (isAnswerSelected) {
                     classes.push(css.answerIsSelected);
                 }
-                return <div key={index} className={classes.join(" ")} onClick={() => { handleOnClick(answer) }}>{answer}</div>;
+                return <div className={css.padding}><button key={index} className={classes.join(" ")} onClick={() => { handleOnClick(answer) }}>{answer}</button></div>;
             }
             )
             }
         </>
-        <button hidden={!isAnswerSelected} onClick={() => {onSubmit(selectedAnswer)}}>Next</button>
+        <button className={css.nextButton} hidden={!isAnswerSelected} onClick={() => { onSubmit(selectedAnswer) }}>Next</button>
     </div>
 }
 
