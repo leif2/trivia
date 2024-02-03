@@ -33,7 +33,8 @@ const Main = () => {
     const constructAnswersArray = (): Answer[] => {
         let answersArray = [];
         questions?.map((question, index) => {
-            const answersObject = {"${answers[index]}": answers[index] === question.correct_answer};
+            const answerString = answers[index];
+            const answersObject = {answer: answers[index], correct: answers[index] === question.correct_answer};
             answersArray.push(answersObject);
         });
         return answersArray;
