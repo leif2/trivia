@@ -2,6 +2,8 @@ import { useState } from "react";
 import css from "./Results.module.scss";
 import { Answer } from "../../pages/Main";
 
+const PASS_PERCENTAGE = 70;
+
 type ResultsProps = {
   correct: number,
   total: number,
@@ -32,7 +34,7 @@ const Results = ({ correct = 3, total = 10, resetQuestions, resetQuiz, answersAr
   let percentage = (correct / total * 100);
   let quizResult = "";
   let quizResultImage = "failremovebg.png";
-  if (percentage >= 70) {
+  if (percentage >= PASS_PERCENTAGE) {
     quizResult = "Congrats, You Passed!";
     quizResultImage = "passremovebg.png";
   }

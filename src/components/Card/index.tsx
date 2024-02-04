@@ -4,6 +4,7 @@ import css from "./Card.module.scss";
 
 type CardProps = {
     question: Question,
+    isLastQuestion: boolean,
     onSubmit: (answer: string) => void
 };
 
@@ -16,7 +17,7 @@ const randomizedAnswers = ({ correct_answer, incorrect_answers, type }: { correc
     return ["True", "False"];
 };
 
-const Card = ({ question, onSubmit }: CardProps) => {
+const Card = ({ question, isLastQuestion, onSubmit }: CardProps) => {
     const [selectedAnswer, setSelectedAnswer] = useState<string>("");
     const [answers, setAnswers] = useState<string[]>();
     const [isAnswerSelected, setIsAnswerSelected] = useState<boolean>(false);
@@ -32,6 +33,8 @@ const Card = ({ question, onSubmit }: CardProps) => {
         setIsAnswerSelected(true);
     }
 
+    const buttonText = isLastQuestion ? "Finish Quiz" : "Next";
+
     return <div className={css.cardContainer}>
         <div className={css.questionContainer}>
             {question.question}
@@ -45,12 +48,26 @@ const Card = ({ question, onSubmit }: CardProps) => {
                 if (isAnswerSelected) {
                     classes.push(css.answerIsSelected);
                 }
-                return <div className={css.padding}><button key={index} className={classes.join(" ")} onClick={() => { handleOnClick(answer) }}>{answer}</button></div>;
+                return <div className={css.padding}>
+                    <button
+                        key={index}
+                        className={classes.join(" ")}
+                        onClick={() => { handleOnClick(answer) }}
+                    >
+                        {answer}
+                    </button>
+                </div>;
             }
             )
             }
         </>
-        <button className={css.nextButton} hidden={!isAnswerSelected} onClick={() => { onSubmit(selectedAnswer) }}>Next</button>
+        <button
+            className={css.nextButton}
+            hidden={!isAnswerSelected}
+            onClick={() => { onSubmit(selectedAnswer) }}
+        >
+            {buttonText}
+        </button>
     </div>
 }
 

@@ -39,15 +39,19 @@ const Main = () => {
         return answersArray;
     };
 
+    const quizHasNotStarted = questions?.length < 1;
+    const quizIsInProgress = questions?.length > 0 && answers.length !== questions.length;
+    const quizIsComplete = questions?.length > 0 && answers.length === questions.length;
+
     return (
         <div>
-            {questions?.length < 1 &&
+            {quizHasNotStarted &&
                 <SetQuestionsForm onSubmit={(form) => setQuestionParams({ ...form })} />
             }
-            {questions?.length > 0 && answers.length !== questions.length &&
-                <Card question={questions[answers.length]} onSubmit={(answer) => { setAnswers([...answers, answer]) }} />
+            {quizIsInProgress &&
+                <Card key={answers.length} question={questions[answers.length]} isLastQuestion={answers.length === questions.length - 1} onSubmit={(answer) => { setAnswers([...answers, answer]) }} />
             }
-            {questions?.length > 0 && answers.length === questions.length &&
+            {quizIsComplete &&
                 <Results
                     correct={calculateNumberCorrect()}
                     total={questions.length}
