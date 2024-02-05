@@ -10,24 +10,29 @@ type ResultsProps = {
   total: number,
   resetQuestions: () => void,
   resetQuiz: () => void,
-  answersArray: Answer[]
+  answersArray: Answer[],
+  questions: string[]
 };
 
-const Results = ({ correct = 3, total = 10, resetQuestions, resetQuiz, answersArray }: ResultsProps) => {
+const Results = ({ correct = 3, total = 10, resetQuestions, resetQuiz, answersArray, questions }: ResultsProps) => {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
   }
 
-  const handleOnClick = (): void => {
-    console.log("$question was clicked.");
-  }
-
   const constructAnswersList = (): any[] => {
     let answersList: any[] = [];
     answersArray.forEach((answer, index) => {
-      answersList.push(<AnswerResult index={index} cssClass={answer.correct ? css.pass : css.error} answer={answer.answer} onClick={handleOnClick}/>)
+      answersList.push(
+        <AnswerResult
+          key={index}
+          index={index}
+          cssClass={answer.correct ? css.pass : css.error}
+          answer={answer.answer}
+          question={index ? questions[index] : questions[0]}
+        />
+      )
     });
     return answersList;
   }
@@ -60,7 +65,7 @@ const Results = ({ correct = 3, total = 10, resetQuestions, resetQuiz, answersAr
 
       {modal && (
         <div className={css.modal}>
-          <div onClick={toggleModal} className={css.overlay}>
+          <div className={css.overlay}>
             <div className={css.modalContent}>
               <h2>Trivia Results</h2>
               {constructAnswersList()}

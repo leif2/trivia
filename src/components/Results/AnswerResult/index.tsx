@@ -2,11 +2,16 @@ type AnswerResultProps = {
 	index: number,
 	cssClass: string,
 	answer: string,
-	onClick: () => void
+	question: string
 }
 
-const AnswerResult = ({index, cssClass, answer, onClick}: AnswerResultProps) => {
-	return <p key={index} className={cssClass} onClick={onClick}>Q{index + 1}: {answer}</p>;
+const AnswerResult = ({index, cssClass, answer, question}: AnswerResultProps) => {
+
+	const handleOnClick = () => {
+		console.log({question});
+	}
+
+	return <p key={index} className={cssClass} onClick={handleOnClick}>Q{index + 1}: {answer}</p>;
 }
 
 export default AnswerResult;

@@ -61,6 +61,7 @@ const Main = () => {
                     }}
                     resetQuestions={() => setAnswers([])}
                     answersArray={constructAnswersArray()}
+                    questions={questions.map(question => question.question)}
                     />
             }
         </div>
