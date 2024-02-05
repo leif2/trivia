@@ -1,6 +1,7 @@
 import { useState } from "react";
 import css from "./Results.module.scss";
 import { Answer } from "../../pages/Main";
+import AnswerResult from "./AnswerResult";
 
 const PASS_PERCENTAGE = 70;
 
@@ -19,14 +20,14 @@ const Results = ({ correct = 3, total = 10, resetQuestions, resetQuiz, answersAr
     setModal(!modal);
   }
 
+  const handleOnClick = (): void => {
+    console.log("$question was clicked.");
+  }
+
   const constructAnswersList = (): any[] => {
     let answersList: any[] = [];
     answersArray.forEach((answer, index) => {
-      if (answer.correct) {
-        answersList.push(<p className={css.pass} key={index}>Q{index + 1}: {answer.answer}</p>);
-      } else {
-        answersList.push(<p className={css.error} key={index}>Q{index + 1}: {answer.answer}</p>);
-      }
+      answersList.push(<AnswerResult index={index} cssClass={answer.correct ? css.pass : css.error} answer={answer.answer} onClick={handleOnClick}/>)
     });
     return answersList;
   }
