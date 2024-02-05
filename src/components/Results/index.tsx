@@ -16,7 +16,7 @@ type ResultsProps = {
 
 const Results = ({ correct = 3, total = 10, resetQuestions, resetQuiz, answersArray, questions }: ResultsProps) => {
   const [modal, setModal] = useState(false);
-
+  
   const toggleModal = () => {
     setModal(!modal);
   }

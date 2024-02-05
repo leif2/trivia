@@ -48,7 +48,7 @@ const Card = ({ question, isLastQuestion, onSubmit }: CardProps) => {
                 if (isAnswerSelected) {
                     classes.push(css.answerIsSelected);
                 }
-                return <div className={css.padding}>
+                return <div key={index} className={css.padding}>
                     <button
                         key={index}
                         className={classes.join(" ")}
