@@ -6,64 +6,8 @@
 	font-weight: bold;
 }
 
-.mainContainer{
-    display: flex;
-    flex-direction: column;
-    line-height: 250px;
-    text-align: center;
-    padding: 4rem;
-    margin-top: 0px;
-    margin-bottom: 1rem;
-    border-radius: 30px;
-    border: 2px solid black;
-
-    .modal, .overlay{
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        position:absolute;
-    }
-    .overlay{
-        background: rgba(49, 49, 49, 0.8);
-
-    }
-    .modalContent{
-		display: flex;
-		font-size: 100%;
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        line-height: 1.4;
-        color: black;
-        background: white;
-        padding: 14px 28px;
-        border-radius: 3px;
-        max-width: 600px;
-        min-width: 300px;
-    }
-
-    .closeModalButton{
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        padding: 5px 7px;
-    }
-}
-
-.questionInformation {
-	font-size: larger;
-	display: block;
-	box-sizing: border-box;
-	border: 2px solid red;
+.collapsibleContent {
 	overflow: hidden;
-	padding: 3px;
-}
-
-.questionInformationSquished {
-	display: none;
-	overflow: hidden;
+	transition: height 0.2s ease-in-out;
+	border: 1px solid #dee2e6 !important;
 }
