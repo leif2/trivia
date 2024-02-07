@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { z } from "zod";
+import { QuestionsForm } from "../../components/SetQuestionsForm";
 
 const questionsSchema = z.object({
     category: z.string(),
@@ -19,14 +20,42 @@ const resultSchema = z.object({
     results: z.array(questionsSchema)
 })
 
-const useTriviaQuestions = (category: number = 9) => {
+const convert = (value: string) => {
+    return value.replace(/&#(?:x([\da-f]+)|(\d+));/ig, function (_, hex, dec) {
+      return String.fromCharCode(dec || +('0x' + hex))
+    }).replace(/&quot;/g, '"')
+  }
+
+const useTriviaQuestions = (questionParam: QuestionsForm | null, disabled = false) => {
+    console.log(disabled)
     return useQuery({
-        queryKey: ["trivia-questions", category],
+        queryKey: ["trivia-questions", JSON.stringify(questionParam)],
         queryFn: async ()=> {
-            const response = await axios.get(`https://opentdb.com/api.php?amount=10&category=${category}`)
-            return resultSchema.parse(response?.data)?.results;
+            console.log("GET Q's")
+            let url = `https://opentdb.com/api.php?amount=${questionParam?.amount}`;
+
+            if (questionParam?.category) {
+                url += `&category=${questionParam?.category || 10}`
+            }
+
+            if (questionParam?.type) {
+                url += `&type=${questionParam?.type}`
+            }
+
+            if (questionParam?.difficulty) {
+                url += `&difficulty=${questionParam?.difficulty}`
+            }
+
+            const response = await axios.get(url)
+            let questions = resultSchema.parse(response?.data)?.results;
+            return questions.map(questionData => ({
+                ...questionData,
+                question: convert(questionData.question),
+                incorrect_answers: questionData?.incorrect_answers.map(answer => convert(answer)),
+                correct_answer: convert(questionData?.correct_answer)
+            }));
         },
-        staleTime: 60*1000*5,
+        enabled: !disabled
     });
 };
 

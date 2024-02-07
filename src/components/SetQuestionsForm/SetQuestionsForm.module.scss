@@ -1,0 +1,39 @@
+@import "src/sass_utils";
+
+.setQuestionsFormContainer {
+    //margin: 0 8px;
+    padding: 8px;
+    max-width: 600px;
+    width: 80vw;
+    min-width: 100px;
+    border-radius: 8px;
+    border-color: $light;
+    border-width: 2px;
+    border-style: solid;
+
+    .setQuestionsInnerContainer {
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+        width: 100%;
+
+        .inputContainer {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            row-gap: 8px;
+
+            .label {
+                font-size: 24px;
+            }
+
+            .input {
+                width: 100%
+            }
+        }
+    }  
+}
+
+.error {
+    color: red;
+}

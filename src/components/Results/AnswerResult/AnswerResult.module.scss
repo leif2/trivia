@@ -1,0 +1,13 @@
+.answerResultContainer {
+	font-size: 200%;
+}
+
+.answerResultContainer:hover {
+	font-weight: bold;
+}
+
+.collapsibleContent {
+	overflow: hidden;
+	transition: height 0.2s ease-in-out;
+	border: 1px solid #dee2e6 !important;
+}
